@@ -7,6 +7,7 @@ import dartSass from 'sass';
 import gulpSass from 'gulp-sass';
 import del from 'del';
 import webpack from 'webpack-stream';
+import named from 'vinyl-named';
 
 const sass = gulpSass(dartSass);
 
@@ -58,6 +59,7 @@ export const images = () => {
 export const scripts = () => {
   return gulp
     .src(paths.scripts.src)
+    .pipe(named)
     .pipe(
       webpack({
         module: {
@@ -67,14 +69,14 @@ export const scripts = () => {
               use: {
                 loader: 'babel-loader',
                 options: {
-                  presets: ['@babel/preset-env'], //or ['babel-preset-env']
+                  presets: ['@babel/preset-env'],
                 },
               },
             },
           ],
         },
         output: {
-          filename: 'bundle.js',
+          filename: '[name].js',
         },
         devtool: !PRODUCTION ? 'inline-source-map' : false,
         mode: PRODUCTION ? 'production' : 'development', //add this
