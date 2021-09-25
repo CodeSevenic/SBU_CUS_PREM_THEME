@@ -6,9 +6,11 @@ import imagemin from 'gulp-imagemin';
 import dartSass from 'sass';
 import gulpSass from 'gulp-sass';
 import del from 'del';
+import webpack from 'webpack-stream';
 
 const sass = gulpSass(dartSass);
 
+//  Change this to true if building for PRODUCTION
 let PRODUCTION = false;
 
 const paths = {
@@ -19,6 +21,10 @@ const paths = {
   images: {
     src: 'src/assets/images/**/*.{jpg,jpeg,png,svg,gif}',
     dest: 'dist/assets/images',
+  },
+  scripts: {
+    src: 'src/assets/js/bundle.js',
+    dest: 'dist/assets/js',
   },
   other: {
     src: [
@@ -49,10 +55,52 @@ export const images = () => {
     .pipe(gulp.dest(paths.images.dest));
 };
 
+export const scripts = () => {
+  return gulp
+    .src(paths.scripts.src)
+    .pipe(
+      webpack({
+        module: {
+          rules: [
+            {
+              test: /\.js$/,
+              use: {
+                loader: 'babel-loader',
+                options: {
+                  presets: ['@babel/preset-env'], //or ['babel-preset-env']
+                },
+              },
+            },
+          ],
+        },
+        output: {
+          filename: 'bundle.js',
+        },
+        devtool: !PRODUCTION ? 'inline-source-map' : false,
+        mode: PRODUCTION ? 'production' : 'development', //add this
+      })
+    )
+    .pipe(gulp.dest(paths.scripts.dest));
+};
+
 export const watch = () => {
   gulp.watch('src/assets/scss/**/*.scss', styles);
+  gulp.watch(paths.images.src, images);
+  gulp.watch(paths.other.src, copy);
 };
 
 export const copy = () => {
   return gulp.src(paths.other.src).pipe(gulp.dest(paths.other.dest));
 };
+
+export const dev = gulp.series(
+  clean,
+  gulp.parallel(styles, images, scripts, copy),
+  watch
+);
+export const build = gulp.series(
+  clean,
+  gulp.parallel(styles, images, scripts, copy)
+);
+
+export default dev;
