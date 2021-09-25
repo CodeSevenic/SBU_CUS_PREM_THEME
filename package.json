@@ -16,6 +16,7 @@
     "@babel/preset-env": "^7.15.6",
     "@babel/register": "^7.15.3",
     "babel-loader": "^8.2.2",
+    "browser-sync": "^2.27.5",
     "css-loader": "^6.3.0",
     "del": "^6.0.0",
     "gulp": "^4.0.2",
@@ -31,5 +32,8 @@
     "style-loader": "^3.3.0",
     "vinyl-named": "^1.1.0",
     "webpack-stream": "^5.2.1"
+  },
+  "dependencies": {
+    "jquery": "^3.6.0"
   }
 }

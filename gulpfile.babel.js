@@ -8,6 +8,9 @@ import gulpSass from 'gulp-sass';
 import del from 'del';
 import webpack from 'webpack-stream';
 import named from 'vinyl-named';
+import browserSync from 'browser-sync';
+
+const server = browserSync.create();
 
 const sass = gulpSass(dartSass);
 
@@ -24,7 +27,7 @@ const paths = {
     dest: 'dist/assets/images',
   },
   scripts: {
-    src: 'src/assets/js/bundle.js',
+    src: 'src/assets/js/*.js',
     dest: 'dist/assets/js',
   },
   other: {
@@ -37,6 +40,18 @@ const paths = {
   },
 };
 
+export const serve = (done) => {
+  server.init({
+    proxy: 'http://premiumtheme.local',
+  });
+  done();
+};
+
+export const reload = (done) => {
+  server.reload();
+  done();
+};
+
 export const clean = () => del(['dist']);
 
 export const styles = () => {
@@ -46,7 +61,8 @@ export const styles = () => {
     .pipe(sass.sync().on('error', sass.logError))
     .pipe(gulpIf(PRODUCTION, cleanCSS({ compatibility: 'ie8' })))
     .pipe(gulpIf(!PRODUCTION, sourceMaps.write()))
-    .pipe(gulp.dest(paths.styles.dest));
+    .pipe(gulp.dest(paths.styles.dest))
+    .pipe(server.stream());
 };
 
 export const images = () => {
@@ -59,7 +75,7 @@ export const images = () => {
 export const scripts = () => {
   return gulp
     .src(paths.scripts.src)
-    .pipe(named)
+    .pipe(named())
     .pipe(
       webpack({
         module: {
@@ -78,6 +94,9 @@ export const scripts = () => {
         output: {
           filename: '[name].js',
         },
+        externals: {
+          jquery: 'jQuery',
+        },
         devtool: !PRODUCTION ? 'inline-source-map' : false,
         mode: PRODUCTION ? 'production' : 'development', //add this
       })
@@ -87,8 +106,10 @@ export const scripts = () => {
 
 export const watch = () => {
   gulp.watch('src/assets/scss/**/*.scss', styles);
-  gulp.watch(paths.images.src, images);
-  gulp.watch(paths.other.src, copy);
+  gulp.watch('src/assets/js/**/*.js', gulp.series(scripts, reload));
+  gulp.watch('**/*.php', reload);
+  gulp.watch(paths.images.src, gulp.series(images, reload));
+  gulp.watch(paths.other.src, gulp.series(copy, reload));
 };
 
 export const copy = () => {
@@ -98,6 +119,7 @@ export const copy = () => {
 export const dev = gulp.series(
   clean,
   gulp.parallel(styles, images, scripts, copy),
+  serve,
   watch
 );
 export const build = gulp.series(
