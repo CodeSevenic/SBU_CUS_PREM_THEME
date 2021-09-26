@@ -9,6 +9,7 @@ import del from 'del';
 import webpack from 'webpack-stream';
 import named from 'vinyl-named';
 import browserSync from 'browser-sync';
+import zip from 'gulp-zip';
 
 const server = browserSync.create();
 
@@ -37,6 +38,21 @@ const paths = {
       '!src/assets/{images,js,scss}/**/*',
     ],
     dest: 'dist/assets',
+  },
+  package: {
+    src: [
+      '**/*',
+      '!.vscode',
+      '!node_modules{,/**}',
+      '!src{,/**}',
+      '!.babelrc',
+      '!packaged',
+      '!.gitignore',
+      '!gulpfile.babel.js',
+      '!package.json',
+      '!package-lock.json',
+    ],
+    dest: 'packaged',
   },
 };
 
@@ -104,6 +120,13 @@ export const scripts = () => {
     .pipe(gulp.dest(paths.scripts.dest));
 };
 
+export const compress = () => {
+  return gulp
+    .src(paths.package.src)
+    .pipe(zip('_themename.zip'))
+    .pipe(gulp.dest(paths.package.dest));
+};
+
 export const watch = () => {
   gulp.watch('src/assets/scss/**/*.scss', styles);
   gulp.watch('src/assets/js/**/*.js', gulp.series(scripts, reload));
@@ -122,9 +145,13 @@ export const dev = gulp.series(
   serve,
   watch
 );
+
+// Remember to set PRODUCTION to true
 export const build = gulp.series(
   clean,
   gulp.parallel(styles, images, scripts, copy)
 );
+// Remember to set PRODUCTION to true
+export const bundle = gulp.series(build, compress);
 
 export default dev;

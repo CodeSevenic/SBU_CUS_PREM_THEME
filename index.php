@@ -6,12 +6,12 @@
   <a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a>
 </h2>
 <div>
-  <?php echo sbu_theme_post_meta(); ?>
+  <?php echo _themename_post_meta(); ?>
 </div>
 <div>
   <?php the_excerpt(); ?>
 </div>
-<?php echo sbu_theme_readmore_link() ?>
+<?php echo _themename_readmore_link() ?>
 <?php } ?>
 <?php the_posts_pagination(); ?>
 <?php } else { ?>
