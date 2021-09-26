@@ -1,3 +1,6 @@
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+
 import gulp from 'gulp';
 import cleanCSS from 'gulp-clean-css';
 import gulpIf from 'gulp-if';
@@ -10,6 +13,8 @@ import webpack from 'webpack-stream';
 import named from 'vinyl-named';
 import browserSync from 'browser-sync';
 import zip from 'gulp-zip';
+import replace from 'gulp-replace';
+const info = require('./package.json');
 
 const server = browserSync.create();
 
@@ -123,7 +128,8 @@ export const scripts = () => {
 export const compress = () => {
   return gulp
     .src(paths.package.src)
-    .pipe(zip('_themename.zip'))
+    .pipe(replace('_themename', info.name))
+    .pipe(zip(`${info.name}.zip`))
     .pipe(gulp.dest(paths.package.dest));
 };
 
