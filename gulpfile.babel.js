@@ -63,7 +63,7 @@ const paths = {
 
 export const serve = (done) => {
   server.init({
-    proxy: 'http://premiumtheme.local',
+    proxy: 'http://sbutheme/',
   });
   done();
 };
