@@ -148,7 +148,7 @@ export const copy = () => {
 export const dev = gulp.series(
   clean,
   gulp.parallel(styles, images, scripts, copy),
-  serve,
+  // serve,
   watch
 );
 
