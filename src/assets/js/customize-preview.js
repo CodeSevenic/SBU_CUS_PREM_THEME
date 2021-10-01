@@ -13,7 +13,17 @@ console.log(_themename);
 
 wp.customize('_themename_accent_color', (value) => {
   value.bind((to) => {
-    $('#_themename-stylesheet-inline-css').html(_themename.x);
+    let inline_css = ``;
+    let inline_css_obj = _themename['inline-css'];
+    for (let selector in inline_css_obj) {
+      inline_css += `${selector} {`;
+      for (let prop in inline_css_obj[selector]) {
+        let val = inline_css_obj[selector][prop];
+        inline_css += `${prop}: ${wp.customize(val).get()}`;
+      }
+      inline_css += '}';
+    }
+    $('#_themename-stylesheet-inline-css').html(inline_css);
   });
 });
 
