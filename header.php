@@ -14,8 +14,13 @@
     <div class="c-header">
       <div class="o-container u-flex u-align-justify u-align-middle">
         <div class="c-header__logo">
+          <?php
+          if (has_custom_logo()) {
+            the_custom_logo();
+          } else { ?>
           <a href="<?php echo esc_url(home_url('/')); ?>"
             class="c-header__blogname"><?php esc_html(bloginfo('name')); ?></a>
+          <?php } ?>
         </div>
         <?php get_search_form(true); ?>
       </div>
