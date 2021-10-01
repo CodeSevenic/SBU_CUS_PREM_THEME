@@ -19,7 +19,7 @@ wp.customize('_themename_accent_color', (value) => {
       inline_css += `${selector} {`;
       for (let prop in inline_css_obj[selector]) {
         let val = inline_css_obj[selector][prop];
-        inline_css += `${prop}: ${wp.customize(val).get()}`;
+        // inline_css += `${prop}: ${wp.customize(val).get()}`;
       }
       inline_css += '}';
     }
