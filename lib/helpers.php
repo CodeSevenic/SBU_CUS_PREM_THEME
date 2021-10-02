@@ -9,3 +9,15 @@ function _themename_readmore_link()
 {
   get_template_part('template-parts/content', 'readmore_link');
 }
+
+function _themename_delete_post()
+{
+  $url = add_query_arg([
+    'action' => '_themename_delete_post',
+    'post' => get_the_ID()
+  ], home_url());
+  // var_dump(current_user_can('delete_post', get_the_ID()));
+  if (current_user_can('delete_post', get_the_ID())) {
+    return "<a href='" . esc_url($url) . "'>" . esc_html__('Delete Post', '_themename') . "</a>";
+  }
+}
