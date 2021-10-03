@@ -45,7 +45,7 @@
         }
         if (has_tag()) {
           echo '<div class="c-post__tags">';
-          $tags_list = get_the_tag_list('<ul><li>', '</li><li>', '</li></ul>');
+          // $tags_list = get_the_tag_list('<ul><li>', '</li><li>', '</li></ul>');
           echo $tags_list;
           echo '</div>';
         }
