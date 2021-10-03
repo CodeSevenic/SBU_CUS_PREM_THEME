@@ -22,11 +22,28 @@
       </div>
     </header>
 
+    <?php if (is_single()) { ?>
+    <div class="c-post__content">
+      <?php the_content(); ?>
+    </div>
+    <?php } else { ?>
     <div class="c-post__excerpt">
       <?php the_excerpt(); ?>
     </div>
-    <?php echo _themename_readmore_link() ?>
-    <?php echo _themename_delete_post(); ?>
-    <?php var_dump(get_post_meta(get_the_ID(), 'Price')); ?>
+    <?php } ?>
+
+    <?php if (is_single()) { ?>
+    <footer class="c-post__footer">
+      <?php
+        if (has_category()) {
+          $cats_list = get_the_category_list(esc_html__(',', '_themename'));
+          printf(esc_html__('Posted in %s', '_themename'), $cats_list);
+        }
+
+        ?>
+    </footer>
+    <?php } ?>
+
+    <?php if (!is_single()) echo _themename_readmore_link(); ?>
   </div>
 </article>
