@@ -36,6 +36,10 @@ const paths = {
     src: 'src/assets/js/*.js',
     dest: 'dist/assets/js',
   },
+  plugins: {
+    src: ['../../plugins/_themename-metaboxes/packaged/*'],
+    dest: ['lib/plugins'],
+  },
   other: {
     src: [
       'src/assets/**/*',
@@ -127,8 +131,13 @@ export const scripts = () => {
 
 export const compress = () => {
   return gulp
-    .src(paths.package.src)
-    .pipe(replace('_themename', info.name))
+    .src(paths.package.src, { base: '../' })
+    .pipe(
+      gulpIf(
+        (file) => file.relative.split('.').pop() !== 'zip',
+        replace('_themename', info.name)
+      )
+    )
     .pipe(zip(`${info.name}.zip`))
     .pipe(gulp.dest(paths.package.dest));
 };
@@ -145,6 +154,10 @@ export const copy = () => {
   return gulp.src(paths.other.src).pipe(gulp.dest(paths.other.dest));
 };
 
+export const copyPlugins = () => {
+  return gulp.src(paths.plugins.src).pipe(gulp.dest(paths.plugins.dest));
+};
+
 export const dev = gulp.series(
   clean,
   gulp.parallel(styles, images, scripts, copy),
@@ -155,7 +168,8 @@ export const dev = gulp.series(
 // Remember to set PRODUCTION to true
 export const build = gulp.series(
   clean,
-  gulp.parallel(styles, images, scripts, copy)
+  gulp.parallel(styles, images, scripts, copy),
+  copyPlugins
 );
 // Remember to set PRODUCTION to true
 export const bundle = gulp.series(build, compress);
