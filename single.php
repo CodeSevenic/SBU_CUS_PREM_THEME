@@ -11,20 +11,7 @@ if ($layout == 'sidebar' && !$sidebar) {
     <div
       class="o-row__column o-row__column--span-12 o-row__column--span-<?php echo $layout == 'sidebar' ? '8' : '12' ?>@medium">
       <main role="main">
-        <?php if (have_posts()) { ?>
-        <?php while (have_posts()) { ?>
-        <?php the_post(); ?>
-
-        <?php get_template_part('template-parts/post/content'); ?>
-
-        <?php if (get_theme_mod('_themename_display_author_info', true)) {
-              get_template_part('template-parts/single/author');
-            } ?>
-
-        <?php } ?>
-        <?php } else { ?>
-        <?php get_template_part('template-parts/post/content', 'none'); ?>
-        <?php } ?>
+        <?php get_template_part('loop', 'single') ?>
       </main>
     </div>
     <?php if ($layout == 'sidebar') { ?>

@@ -25,7 +25,7 @@ let PRODUCTION = false;
 
 const paths = {
   styles: {
-    src: ['src/assets/scss/bundle.scss', 'src/assets/scss/admin.scss'],
+    src: ['src/assets/scss/bundle.scss', 'src/assets/scss/admin.scss', 'src/assets/scss/editor.scss'],
     dest: 'dist/assets/css',
   },
   images: {

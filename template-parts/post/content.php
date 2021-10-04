@@ -24,7 +24,9 @@
 
     <?php if (is_single()) { ?>
     <div class="c-post__content">
-      <?php the_content(); ?>
+      <?php the_content();
+        wp_link_pages();
+        ?>
     </div>
     <?php } else { ?>
     <div class="c-post__excerpt">
