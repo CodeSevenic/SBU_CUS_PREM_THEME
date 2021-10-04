@@ -22,6 +22,13 @@ if (post_password_required()) {
       );
       ?>
   </h2>
-  <?php } ?>
-
+  <ul class="c-comments__list">
+    <?php
+      wp_list_comments(array(
+        'avatar_size' => 200,
+        'reply_text' => 'Hello'
+      ));
+      ?>
+    <?php } ?>
+  </ul>
 </div>
