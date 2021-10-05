@@ -7,8 +7,8 @@ if (post_password_required()) {
 <div id="comments" class="c-comments">
 
   <?php if (have_comments()) { ?>
-  <h2 class="c-comments__title">
-    <?php
+    <h2 class="c-comments__title">
+      <?php
       /* translators: 1 is number of comments and 2 is post title */
       printf(
         esc_html(_n(
@@ -21,25 +21,28 @@ if (post_password_required()) {
         get_the_title()
       );
       ?>
-  </h2>
-  <ul class="c-comments__list">
-    <?php
+    </h2>
+
+    <ul class="c-comments__list">
+      <?php
       wp_list_comments(array(
-        'avatar_size' => 200,
+        'short_ping' => false,
+        'avatar_size' => 50,
         'reply_text' => 'Hello',
         'callback' => '_themename_comment_callback'
       ));
       ?>
-  </ul>
-  <?php the_comments_pagination(); ?>
+    </ul>
+
+    <?php the_comments_pagination(); ?>
   <?php } ?>
 
   <?php
   if (!comments_open() && get_comments_number()) { ?>
-  <p class="c-comments__closed"><?php esc_html_e('Comments are closed for this post', '_themename'); ?></p>
+    <p class="c-comments__closed"><?php esc_html_e('Comments are closed for this post', '_themename'); ?></p>
   <?php } else { ?>
 
-  <?php comment_form(); ?>
+    <?php comment_form(); ?>
 
   <?php } ?>
 </div>
