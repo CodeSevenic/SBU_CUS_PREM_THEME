@@ -39,7 +39,7 @@ function _themename_comment_callback($comment, $args, $depth)
           'after' => '</div>'
         )));
         ?>
-      </div>
+      </div> 
     </article>
   <?php
 }
