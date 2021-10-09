@@ -15,18 +15,25 @@
       <header>
         <?php echo get_avatar($author, 128); ?>
         <h1 class="u-margin-top-20"><b><?php echo esc_html($author_display); ?></b></h1>
-        <?php
-         /* translators: %s is the number of posts */
-         printf(esc_html(_n('%s post', '%s posts', $author_posts, '_themename')), number_format_i18n($author_posts));
-
-        if ($author_website) {?>
-      <a href="<?php echo esc_url($author_website); ?>" target="_blank">
-        <?php }?>
+        <div class="c-post-author__info">
+              <?php
+               /* translators: %s is the number of posts */
+               printf(esc_html(_n('%s post', '%s posts', $author_posts, '_themename')), number_format_i18n($author_posts));
+              ?>
+              <br />
+              <?php
+              if ($author_website) {?>
+                <a href="<?php echo esc_url($author_website); ?>" href="<?php echo esc_url($author_website) ?>">
+                  <?php echo esc_html($author_website); ?></a>
+              <?php }?>
+        </div>
+        <p class="c-post-author__desc">
+          <?php echo esc_html($author_description); ?>
+        </p>
       </header>
     </div>
 
-    <div
-      class="o-row__column o-row__column--span-12 o-row__column--span-8@medium">
+    <div class="o-row__column o-row__column--span-12 o-row__column--span-8@medium">
       <main role="main">
         <?php get_template_part('loop', 'author');?>
       </main>
