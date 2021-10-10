@@ -3,7 +3,9 @@
   <div class="c-post__inner">
 
     <div class="c-post__content">
-          <?php //the_content();?>
+          <?php
+           the_content();
+          ?>
     </div>
 
     <div class="c-post__meta">
