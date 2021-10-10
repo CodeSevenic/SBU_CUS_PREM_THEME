@@ -9,24 +9,6 @@ require_once 'lib/navigation.php';
 require_once 'lib/include-plugins.php';
 require_once 'lib/comment-callback.php';
 
-function _themename_icon_func($atts)
-{
- extract(shortcode_atts(['icon' => 'red'], $atts));
-
- return '<i class="background-color: ' . esc_attr($icon) . ' aria-hidden "></i>';
-}
-
-add_shortcode('_themename_icon', '_themename_icon_func');
-
-function _themename_button_func($atts)
-{
- extract(shortcode_atts(['color' => 'red', 'text' => 'Button'], $atts));
-
- return '<button style="background-color: ' . esc_attr($color) . ' ">' . esc_html($text) . '</button>';
-}
-
-add_shortcode('_themename_button', '_themename_button_func');
-
 function _themename_handle_delete_post()
 {
  if (isset($_GET['action']) && $_GET['action'] === '_themename_delete_post') {

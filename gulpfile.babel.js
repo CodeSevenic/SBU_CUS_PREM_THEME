@@ -25,7 +25,11 @@ let PRODUCTION = false;
 
 const paths = {
   styles: {
-    src: ['src/assets/scss/bundle.scss', 'src/assets/scss/admin.scss', 'src/assets/scss/editor.scss'],
+    src: [
+      'src/assets/scss/bundle.scss',
+      'src/assets/scss/admin.scss',
+      'src/assets/scss/editor.scss',
+    ],
     dest: 'dist/assets/css',
   },
   images: {
@@ -37,7 +41,10 @@ const paths = {
     dest: 'dist/assets/js',
   },
   plugins: {
-    src: ['../../plugins/_themename-metaboxes/packaged/*'],
+    src: [
+      '../../plugins/_themename-metaboxes/packaged/*',
+      '../../plugins/_themename-shortcodes/packaged/*',
+    ],
     dest: ['lib/plugins'],
   },
   other: {
