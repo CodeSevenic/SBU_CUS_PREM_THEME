@@ -4,7 +4,7 @@
 
     <div class="c-post__content">
           <?php
-           //  the_content();
+            the_content();
           ?>
     </div>
 
