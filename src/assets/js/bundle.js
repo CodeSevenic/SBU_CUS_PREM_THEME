@@ -6,6 +6,6 @@ import 'slick-carousel';
 $(() => {
   $('.c-post__gallery, .blocks-gallery-grid').slick({
     arrows: false,
-    adaptiveHeight: true,
+    // adaptiveHeight: true,
   });
 });
