@@ -44,6 +44,7 @@ const paths = {
     src: [
       '../../plugins/_themename-metaboxes/packaged/*',
       '../../plugins/_themename-shortcodes/packaged/*',
+      '../../plugins/_themename-post-types/packaged/*',
     ],
     dest: ['lib/plugins'],
   },
