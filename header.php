@@ -18,8 +18,7 @@
           if (has_custom_logo()) {
             the_custom_logo();
           } else { ?>
-          <a href="<?php echo esc_url(home_url('/')); ?>"
-            class="c-header__blogname"><?php esc_html(bloginfo('name')); ?></a>
+            <a href="<?php echo esc_url(home_url('/')); ?>" class="c-header__blogname"><?php esc_html(bloginfo('name')); ?></a>
           <?php } ?>
         </div>
         <?php get_search_form(true); ?>
@@ -34,3 +33,8 @@
     </div>
   </header>
   <div id="content">
+
+    <?php
+
+    var_dump(wp_get_attachment_image(1968, '_themename-blog-image'));
+    echo wp_get_attachment_image(1968, '_themename-blog-image');
