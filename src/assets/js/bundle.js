@@ -18,7 +18,7 @@ $(() => {
         placement.partial.widgetParts &&
         placement.partial.widgetParts.idBase === '_themename_mst_recent_widget'
       ) {
-        console.log('KKDKDK');
+        placement.container.find('.most_recent_widget').slick();
       }
     }
   );
