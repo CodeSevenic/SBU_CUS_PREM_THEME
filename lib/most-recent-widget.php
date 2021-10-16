@@ -88,8 +88,9 @@ class _themename_Most_recent_widget extends WP_Widget
 
     $most_recent_query = new WP_query(
       array(
+        'ignore_sticky_posts' => true,
         'post_type' => 'post',
-        'post_per_page' => isset($instance['post_count']) ? intval($instance['post_count']) : 3,
+        'posts_per_page' => isset($instance['post_count']) ? intval($instance['post_count']) : 3,
         'orderby' => isset($instance['sort_by']) ? _themename_sanitize_sort_by($instance['sort_by']) : 'date',
 
       )
@@ -98,9 +99,10 @@ class _themename_Most_recent_widget extends WP_Widget
     if ($most_recent_query->have_posts()) {
       echo '<div>';
       while ($most_recent_query->have_posts()) {
+        $most_recent_query->the_post();
         echo '<div>';
         echo '<h6><a href="' . esc_url(get_permalink()) . '">' . get_the_title() . '</a></h6>';
-        echo $instance['include_date'] ? get_the_date() : '';
+        echo isset($instance['include_date']) && $instance['include_date'] ? get_the_date() : '';
         echo '</div>';
       }
       echo '</div>';
