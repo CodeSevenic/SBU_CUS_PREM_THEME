@@ -33,8 +33,3 @@
     </div>
   </header>
   <div id="content">
-
-    <?php
-
-    var_dump(wp_get_attachment_image(1968, '_themename-blog-image'));
-    echo wp_get_attachment_image(1968, '_themename-blog-image');
