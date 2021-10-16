@@ -79,7 +79,13 @@ class _themename_Most_recent_widget extends WP_Widget
 
   public function widget($args, $instance)
   {
-    echo 'Looking at me Now';
+    echo $args['before_widget'];
+
+    if (isset($instance['title'])) {
+      $title = apply_filters('widget_title', $instance['title']);
+    }
+
+    echo $args['after_widget'];
   }
 
   public function update($new_instance, $old_instance)
