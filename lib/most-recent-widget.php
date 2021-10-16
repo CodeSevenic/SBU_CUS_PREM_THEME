@@ -57,6 +57,8 @@ class _themename_Most_recent_widget extends WP_Widget
   {
     $instance = array();
     $instance['title'] = sanitize_text_field($new_instance['title']);
+    $instance['post_count'] = intval($new_instance['post_count']);
+    $instance['include_date'] = boolval($new_instance['include_date']);
     return $instance;
   }
 }
