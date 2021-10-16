@@ -14,6 +14,12 @@ $(() => {
     'partial-content-rendered',
     (placement) => {
       console.log(placement);
+      if (
+        placement.partial.widgetParts &&
+        placement.partial.widgetParts.idBase === '_themename_mst_recent_widget'
+      ) {
+        console.log('KKDKDK');
+      }
     }
   );
 });
