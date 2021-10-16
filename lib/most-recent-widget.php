@@ -30,7 +30,25 @@ class _themename_Most_recent_widget extends WP_Widget
     if (isset($instance['title'])) {
       $title = $instance['title'];
     } else {
-      $title = "";
+      $title = "default";
+    }
+
+    if (isset($instance['post_count'])) {
+      $post_count = $instance['post_count'];
+    } else {
+      $post_count = 3;
+    }
+
+    if (isset($instance['include_date'])) {
+      $include_date = $instance['include_date'];
+    } else {
+      $include_date = false;
+    }
+
+    if (isset($instance['sort_by'])) {
+      $sort_by = $instance['sort_by'];
+    } else {
+      $sort_by = 'date';
     } ?>
 
     <p>
@@ -40,20 +58,20 @@ class _themename_Most_recent_widget extends WP_Widget
 
     <p>
       <label for="<?php echo $this->get_field_id('post_count') ?>"><?php esc_html_e('Number of Posts: ', '_themename'); ?></label>
-      <input class="widefat" id="<?php echo $this->get_field_id('post_count') ?>" name="<?php echo $this->get_field_name('post_count') ?>" type="number" min="1" />
+      <input class="widefat" id="<?php echo $this->get_field_id('post_count') ?>" name="<?php echo $this->get_field_name('post_count') ?>" type="number" min="1" value="<?php echo intval($post_count); ?>" />
     </p>
 
     <p>
-      <input id="<?php echo $this->get_field_id('include_date') ?>" name="<?php echo $this->get_field_name('include_date') ?>" type="checkbox" />
+      <input <?php checked($include_date); ?> id="<?php echo $this->get_field_id('include_date') ?>" name="<?php echo $this->get_field_name('include_date') ?>" type="checkbox" />
       <label for="<?php echo $this->get_field_id('include_date') ?>"><?php esc_html_e('Include Date?: ', '_themename'); ?></label>
     </p>
 
     <p>
       <label for="<?php echo $this->get_field_id('sort_by') ?>"><?php esc_html_e('Sort By: ', '_themename'); ?></label>
       <select class="widefat" name="" id="<?php echo $this->get_field_id('sort_by') ?>">
-        <option value="date"><?php esc_html_e('Most Recent', '_themename'); ?></option>
-        <option value="rand"><?php esc_html_e('Random', '_themename'); ?></option>
-        <option value="comment_count"><?php esc_html_e('Number Of Comments', '_themename'); ?></option>
+        <option <?php selected($sort_by, 'date'); ?> value="date"><?php esc_html_e('Most Recent', '_themename'); ?></option>
+        <option <?php selected($sort_by, 'rand'); ?> value="rand"><?php esc_html_e('Random', '_themename'); ?></option>
+        <option <?php selected($sort_by, 'comment_count'); ?> value="comment_count"><?php esc_html_e('Number Of Comments', '_themename'); ?></option>
       </select>
     </p>
 
@@ -70,6 +88,7 @@ class _themename_Most_recent_widget extends WP_Widget
     $instance['title'] = sanitize_text_field($new_instance['title']);
     $instance['post_count'] = intval($new_instance['post_count']);
     $instance['include_date'] = boolval($new_instance['include_date']);
+    $instance['sort_by'] = _themename_sanitize_sort_by($new_instance['sort_by']);
     return $instance;
   }
 }
