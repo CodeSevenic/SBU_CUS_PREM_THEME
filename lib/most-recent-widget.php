@@ -1,5 +1,16 @@
 <?php
 
+
+function _themename_sanitize_sort_by($input)
+{
+  $valid = array('date', 'rand', 'comment_count');
+  if (in_array($input, $valid, true)) {
+    return $input;
+  }
+
+  return 'date';
+}
+
 class _themename_Most_recent_widget extends WP_Widget
 {
   public function __construct()
