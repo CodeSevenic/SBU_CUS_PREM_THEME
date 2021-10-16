@@ -9,4 +9,11 @@ $(() => {
   //   adaptiveHeight: true,
   // });
   $('.most_recent_widget').slick();
+
+  wp.customize.selectiveRefresh.bind(
+    'partial-content-rendered',
+    (placement) => {
+      console.log(placement);
+    }
+  );
 });
