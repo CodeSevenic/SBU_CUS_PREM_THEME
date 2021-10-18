@@ -1,7 +1,7 @@
 <?php
 $inline_styles_selectors = array(
   'a' => array(
-    'color' => '_themename_accent_color'
+    // 'color' => '_themename_accent_color'
   ),
   ':focus' => array(
     'outline-color' => '_themename_accent_color'
