@@ -10,7 +10,7 @@ $inline_styles_selectors = array(
     'border-left-color' => '_themename_accent_color'
   ),
   'button, input[type=submit], .header-nav .menu > .menu-item:not(.mega) .sub-menu .menu-item:hover a' => array(
-    'background-color' => '_themename_accent_color'
+    // 'background-color' => '_themename_accent_color'
   )
 );
 
