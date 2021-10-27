@@ -16,7 +16,8 @@ $(() => {
           placement.partial.widgetIdParts.idBase ===
             '_themename_mst_recent_widget'
         ) {
-          placement.container.find('.most_recent_widget').slick();
+          // placement.container.find('.most_recent_widget').slick();
+          // placement.container.find('.most_recent_widget').slick();
         }
       }
     );
