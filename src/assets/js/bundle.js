@@ -4,10 +4,6 @@ import './components/navigation';
 import 'slick-carousel';
 
 $(() => {
-  // $('.c-post__gallery, .blocks-gallery-grid').slick({
-  //   arrows: false,
-  //   adaptiveHeight: true,
-  // });
   $('.most_recent_widget').slick();
 
   if (wp.customize && wp.customize.selectiveRefresh) {
@@ -20,7 +16,7 @@ $(() => {
           placement.partial.widgetIdParts.idBase ===
             '_themename_mst_recent_widget'
         ) {
-          placement.container.find('.most_recent_widget').slick();
+          // placement.container.find('.most_recent_widget').slick();
         }
       }
     );
